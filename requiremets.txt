@@ -1,0 +1,22 @@
+# Core dependencies for RAG Annual Result Analyzer
+
+# PDF extraction and processing
+PyMuPDF==1.27.2.2  # PDF reading (fitz)
+
+# NLP and embeddings
+sentence-transformers==3.0.1
+transformers==4.36.2
+torch==2.10.0
+
+# Retrieval and indexing
+faiss-cpu==1.13.2  # Use faiss-gpu for GPU support
+
+# Language model API
+groq==1.1.2
+
+# Data processing
+pandas==2.3.3
+numpy==2.2.6
+
+# Utilities
+tqdm==4.67.1
