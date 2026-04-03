@@ -1,8 +1,19 @@
 """RAG (Retrieval Augmented Generation) module for answering queries."""
 
+# ===== MEMORY AND SAFETY FIXES FOR macOS =====
+import os
+os.environ['OPENBLAS_NUM_THREADS'] = '1'
+os.environ['MKL_NUM_THREADS'] = '1'
+os.environ['OMP_NUM_THREADS'] = '1'
+os.environ['PYTORCH_ENABLE_MPS_FALLBACK'] = '1'
+
 import json
 import logging
+import warnings
 from typing import List, Dict, Any, Optional
+
+warnings.filterwarnings('ignore', category=FutureWarning)
+
 import numpy as np
 import faiss
 from groq import Groq
@@ -123,8 +134,14 @@ class RAGPipeline:
         try:
             self.retriever = FAISSRetriever(embeddings)
             self.groq_client = Groq(api_key=groq_api_key)
-            self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_model)
             self.llm_model = llm_model
+            
+            try:
+                self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_model)
+            except Exception as token_e:
+                logger.warning(f"Failed to load tokenizer {tokenizer_model}: {token_e}. Will use raw prompt fallback.")
+                self.tokenizer = None
+                
             logger.info("RAG pipeline initialized successfully")
         except Exception as e:
             logger.error(f"Error initializing RAG pipeline: {e}")
@@ -229,16 +246,18 @@ Return JSON:
             {"role": "user", "content": base_prompt}
         ]
         
-        try:
-            prompt = self.tokenizer.apply_chat_template(
-                conversation=dialogue_template,
-                tokenize=False,
-                add_generation_prompt=True
-            )
-            return prompt
-        except Exception as e:
-            logger.warning(f"Error applying chat template: {e}, using raw prompt")
-            return base_prompt
+        if getattr(self, 'tokenizer', None) is not None:
+            try:
+                prompt = self.tokenizer.apply_chat_template(
+                    conversation=dialogue_template,
+                    tokenize=False,
+                    add_generation_prompt=True
+                )
+                return prompt
+            except Exception as e:
+                logger.warning(f"Error applying chat template: {e}, using raw prompt")
+                
+        return base_prompt
     
     def generate(self, query: str, retrieved_chunks: Optional[List[Dict[str, Any]]] = None) -> str:
         """

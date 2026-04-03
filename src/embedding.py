@@ -1,7 +1,18 @@
 """Embedding generation and management module."""
 
+# ===== MEMORY AND SAFETY FIXES FOR macOS =====
+import os
+os.environ['OPENBLAS_NUM_THREADS'] = '1'
+os.environ['MKL_NUM_THREADS'] = '1'
+os.environ['OMP_NUM_THREADS'] = '1'
+os.environ['PYTORCH_ENABLE_MPS_FALLBACK'] = '1'
+
 import logging
+import warnings
 from typing import List, Dict, Any, Union
+
+warnings.filterwarnings('ignore', category=FutureWarning)
+
 import numpy as np
 import pandas as pd
 import torch

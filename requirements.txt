@@ -3,9 +3,10 @@
 # PDF extraction and processing
 PyMuPDF==1.27.2.2  # PDF reading (fitz)
 
-# NLP and embeddings
+# NLP and embeddings (UPDATED: Fixed tokenizer compatibility)
 sentence-transformers==3.0.1
-transformers==4.36.2
+transformers==4.45.0  # Upgraded from 4.36.2 for tokenizer compatibility
+tokenizers==0.20.3  # Upgraded to handle Mistral model format
 torch==2.10.0
 
 # Retrieval and indexing
@@ -20,3 +21,4 @@ numpy==2.2.6
 
 # Utilities
 tqdm==4.67.1
+dotenv==0.9.9

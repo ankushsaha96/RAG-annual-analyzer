@@ -1,0 +1,13 @@
+# Secrets
+.env
+
+# Python
+RAGenv/
+__pycache__/
+*.pyc
+
+# Mac
+.DS_Store
+
+# Data (Optional, but ignoring so huge embeddings/PDFs don't bloat the git repo implicitly)
+Data/
