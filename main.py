@@ -164,7 +164,7 @@ def load_rag_pipeline(
     embedding_model = EmbeddingGenerator(
         model_name=config.embedding.model_name,
         device=config.embedding.device
-    ).model
+    )
     
     # Create RAG pipeline
     rag_pipeline = RAGPipeline(

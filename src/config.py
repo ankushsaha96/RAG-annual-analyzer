@@ -4,6 +4,7 @@ import os
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
+import logging
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
@@ -29,8 +30,17 @@ class ChunkingConfig:
 class EmbeddingConfig:
     """Configuration for embedding model."""
     
-    model_name: str = "all-mpnet-base-v2"
-    device: str = "cpu"  # Set to "cuda" for GPU
+    model_name: str = "nvidia/llama-3.2-nemoretriever-300m-embed-v1"
+    nvidia_api_key: Optional[str] = None  # Set via environment variable NVIDIA_API_KEY
+    device: str = "cpu"  # No longer used by NVIDIA API but kept for backward compatibility
+
+    def __post_init__(self):
+        """Load NVIDIA API key from environment if not provided."""
+        if not self.nvidia_api_key:
+            self.nvidia_api_key = os.getenv("NVIDIA_API_KEY")
+            if not self.nvidia_api_key:
+                logger = logging.getLogger(__name__)
+                logger.warning("NVIDIA_API_KEY not provided. Embedding generation might fail.")
 
 
 @dataclass

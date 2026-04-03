@@ -99,7 +99,7 @@ class RAGPipeline:
         self,
         chunks: List[Dict[str, Any]],
         embeddings: np.ndarray,
-        embedding_model: SentenceTransformer,
+        embedding_model: Any,
         groq_api_key: str,
         llm_model: str = "llama-3.3-70b-versatile",
         tokenizer_model: str = "mistralai/Mistral-7B-Instruct-v0.1",

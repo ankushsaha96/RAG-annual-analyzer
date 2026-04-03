@@ -16,7 +16,8 @@ warnings.filterwarnings('ignore', category=FutureWarning)
 import numpy as np
 import pandas as pd
 import torch
-from sentence_transformers import SentenceTransformer
+from openai import OpenAI
+from src.config import get_config
 
 logger = logging.getLogger(__name__)
 
@@ -24,7 +25,7 @@ logger = logging.getLogger(__name__)
 class EmbeddingGenerator:
     """Generate and manage embeddings for text chunks."""
     
-    def __init__(self, model_name: str = "all-mpnet-base-v2", device: str = "cpu"):
+    def __init__(self, model_name: str = "nvidia/llama-3.2-nemoretriever-300m-embed-v1", device: str = "cpu"):
         """
         Initialize the embedding generator.
         
@@ -43,15 +44,21 @@ class EmbeddingGenerator:
         self.device = device
         
         try:
-            logger.info(f"Loading embedding model: {model_name} on device: {device}")
-            self.model = SentenceTransformer(
-                model_name_or_path=model_name,
-                device=device
+            logger.info(f"Initializing NVIDIA Embedding Client via OpenAI: {model_name}")
+            config = get_config()
+            api_key = config.embedding.nvidia_api_key or os.getenv("NVIDIA_API_KEY")
+            
+            if not api_key:
+                logger.warning("NVIDIA_API_KEY is not set.")
+                
+            self.client = OpenAI(
+                api_key=api_key,
+                base_url="https://integrate.api.nvidia.com/v1"
             )
-            logger.info("Embedding model loaded successfully")
+            logger.info("Embedding client initialized successfully")
         except Exception as e:
-            logger.error(f"Failed to load embedding model {model_name}: {e}")
-            raise RuntimeError(f"Could not load embedding model: {e}")
+            logger.error(f"Failed to load embedding client {model_name}: {e}")
+            raise RuntimeError(f"Could not load embedding client: {e}")
     
     def encode(self, texts: Union[str, List[str]]) -> np.ndarray:
         """
@@ -78,9 +85,15 @@ class EmbeddingGenerator:
             raise ValueError("texts must be a string or list of strings")
         
         try:
-            embeddings = self.model.encode(texts)
+            response = self.client.embeddings.create(
+                input=texts,
+                model=self.model_name,
+                encoding_format="float",
+                extra_body={"input_type": "query", "truncate": "NONE"}
+            )
+            embeddings = [d.embedding for d in response.data]
             logger.debug(f"Encoded {len(texts)} text(s) into embeddings")
-            return embeddings
+            return np.array(embeddings)
         except Exception as e:
             logger.error(f"Error encoding texts: {e}")
             raise RuntimeError(f"Failed to encode texts: {e}")
@@ -137,7 +150,16 @@ def save_chunks_to_csv(chunks: List[Dict[str, Any]], output_path: str) -> None:
         raise ValueError("chunks cannot be empty")
     
     try:
-        df = pd.DataFrame(chunks)
+        # Pre-format embeddings as non-truncated strings to prevent numpy '...' truncation
+        chunks_copy = []
+        for chunk in chunks:
+            new_chunk = chunk.copy()
+            if "embedding" in new_chunk:
+                arr = np.array(new_chunk["embedding"]).flatten()
+                new_chunk["embedding"] = " ".join(map(str, arr.tolist()))
+            chunks_copy.append(new_chunk)
+            
+        df = pd.DataFrame(chunks_copy)
         df.to_csv(output_path, index=False)
         logger.info(f"Saved {len(chunks)} chunks to {output_path}")
     except Exception as e:

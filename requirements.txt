@@ -3,11 +3,12 @@
 # PDF extraction and processing
 PyMuPDF==1.27.2.2  # PDF reading (fitz)
 
-# NLP and embeddings (UPDATED: Fixed tokenizer compatibility)
-sentence-transformers==3.0.1
-transformers==4.45.0  # Upgraded from 4.36.2 for tokenizer compatibility
-tokenizers==0.20.3  # Upgraded to handle Mistral model format
-torch==2.10.0
+# NLP and embeddings (UPDATED: Relaxed constraints for compilation issues)
+sentence-transformers>=3.0.1
+transformers>=4.45.0  
+tokenizers>=0.21.1  
+torch>=2.10.0
+openai>=1.0.0  # NVIDIA NeMo Retriever integration
 
 # Retrieval and indexing
 faiss-cpu==1.13.2  # Use faiss-gpu for GPU support
