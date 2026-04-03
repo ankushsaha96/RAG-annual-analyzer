@@ -1,0 +1,191 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg-primary: #0A0A0B;
+  --bg-secondary: #141416;
+  --bg-tertiary: #1C1C1F;
+  --bg-glass: rgba(28, 28, 31, 0.6);
+  --text-primary: #F4F4F5;
+  --text-secondary: #A1A1AA;
+  --accent-color: #6366F1;
+  --accent-gradient: linear-gradient(135deg, #6366F1 0%, #A855F7 100%);
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-focus: rgba(99, 102, 241, 0.5);
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 25px -3px rgba(0, 0, 0, 0.5);
+  --glow: 0 0 20px rgba(99, 102, 241, 0.3);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+  /* Add a subtle background texture/gradient mesh */
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.08), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(168, 85, 247, 0.08), transparent 25%);
+  background-attachment: fixed;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--bg-tertiary);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-glow {
+  0% { box-shadow: 0 0 10px rgba(99, 102, 241, 0.2); }
+  50% { box-shadow: 0 0 20px rgba(168, 85, 247, 0.4); }
+  100% { box-shadow: 0 0 10px rgba(99, 102, 241, 0.2); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Base App Layout */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.header h1 {
+  font-size: 3rem;
+  letter-spacing: -0.05em;
+  margin-bottom: 0.5rem;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.header p {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+
+/* Layout Parts */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  flex: 1;
+}
+
+.results-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-bottom: 150px;
+}
+
+/* Glassmorphic Panel (for answers) */
+.glass-panel {
+  background: var(--bg-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: var(--shadow-lg);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-panel:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: var(--glow);
+}
+
+.markdown-content {
+  color: var(--text-primary);
+}
+
+.markdown-content h1, .markdown-content h2, .markdown-content h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: #fff;
+}
+
+.markdown-content p {
+  margin-bottom: 1rem;
+}
+
+.markdown-content ul, .markdown-content ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.markdown-content li {
+  margin-bottom: 0.5rem;
+}
+
+.markdown-content code {
+  background: var(--bg-secondary);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.9em;
+  border: 1px solid var(--border-color);
+}

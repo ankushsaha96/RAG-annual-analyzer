@@ -22,3 +22,8 @@ numpy==2.2.6
 # Utilities
 tqdm==4.67.1
 dotenv==0.9.9
+
+# Web Server
+fastapi>=0.109.0
+uvicorn>=0.27.0
+pydantic>=2.6.0

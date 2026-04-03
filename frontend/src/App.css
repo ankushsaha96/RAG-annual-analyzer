@@ -1,0 +1,127 @@
+/* Chat History Styling */
+
+.chat-history {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+}
+
+.chat-bubble-container {
+  display: flex;
+  width: 100%;
+}
+
+.user-container {
+  justify-content: flex-end;
+}
+
+.bot-container {
+  justify-content: flex-start;
+}
+
+.chat-bubble {
+  max-width: 85%;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+}
+
+.user-bubble {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-bottom-right-radius: 4px;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+}
+
+.user-bubble:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: var(--accent-gradient);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+.bot-bubble {
+  background: var(--bg-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-top-left-radius: 4px;
+  width: 100%;
+}
+
+.error-bubble {
+  background: rgba(239, 68, 68, 0.05);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  width: 100%;
+}
+
+/* Avatar and Badges */
+.bot-avatar {
+  background: var(--accent-gradient);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: var(--glow);
+}
+
+.confidence-bubble {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-left: auto; /* push to right */
+}
+
+.confidence-high {
+  background: rgba(16, 185, 129, 0.1);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.confidence-medium {
+  background: rgba(245, 158, 11, 0.1);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.confidence-low {
+  background: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+/* Markdown overrides for chat */
+.bot-bubble .markdown-content {
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.bot-bubble .markdown-content p {
+  margin-bottom: 0.75rem;
+}
+
+.bot-bubble .markdown-content p:last-child {
+  margin-bottom: 0;
+}
