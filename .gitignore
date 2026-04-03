@@ -9,5 +9,4 @@ __pycache__/
 # Mac
 .DS_Store
 
-# Data (Optional, but ignoring so huge embeddings/PDFs don't bloat the git repo implicitly)
-Data/
+# Data is required for deployment to Render so that startup is instant!
