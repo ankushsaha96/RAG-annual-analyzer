@@ -1,285 +1,170 @@
-# RAG Annual Result Analyzer
+<div align="center">
 
-A production-ready Retrieval Augmented Generation (RAG) system for analyzing annual reports and answering questions based on the document content.
+# 🚀 RAG Analyzer Neural Core
 
-## Features
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.10+-3776AB.svg?style=for-the-badge&logo=python&logoColor=white" alt="Python Badge" />
+  <img src="https://img.shields.io/badge/FastAPI-009688.svg?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI Badge" />
+  <img src="https://img.shields.io/badge/Vite-React-646CFF.svg?style=for-the-badge&logo=vite&logoColor=white" alt="Vite Badge" />
+  <img src="https://img.shields.io/badge/Groq-Llama_3.3_70B-F55036.svg?style=for-the-badge&logo=groq&logoColor=white" alt="Groq Badge" />
+</p>
 
-- 📄 **PDF Extraction**: Efficiently extracts and processes text from PDF documents
-- 🔗 **Semantic Search**: Uses FAISS for fast similarity-based document retrieval
-- 🤖 **LLM Integration**: Leverages Groq's LLM API for generating contextual answers
-- ⚙️ **Configuration Management**: Easy configuration for all components
-- 📊 **Logging & Error Handling**: Comprehensive logging and error handling throughout
-- 🎯 **Type Hints**: Full type annotations for better code quality
-- 🖥️ **CLI Interface**: Command-line interface for easy interaction
+### A Next-Generation Retrieval Augmented Generation System
 
-## Project Structure
+*Seamlessly extract knowledge from deep inside annual reports using hyper-fast vector search and state-of-the-art LLMs.*
 
-```
-.
-├── main.py                      # CLI application entry point
-├── src/
-│   ├── config.py               # Configuration management
-│   ├── pdf_extractor.py        # PDF extraction and text processing
-│   ├── embedding.py            # Embedding generation and management
-│   ├── rag.py                  # RAG pipeline (retrieval + generation)
-│   ├── embedder.py             # Legacy embedder (for compatibility)
-│   └── tokenizer.py            # Legacy tokenizer (for compatibility)
-├── Data/
-│   ├── TCS-annual-report-2024-2025.pdf  # Input PDF document
-│   └── embedding.csv           # Generated embeddings (created after first run)
-├── Notebooks/
-│   ├── Part1_embedding.ipynb   # Legacy notebook (reference)
-│   └── Part2_result_generator.ipynb    # Legacy notebook (reference)
-├── requiremets.txt             # Python dependencies
-└── README.md                   # This file
-```
+</div>
 
-## Installation
+---
 
-### 1. Install Dependencies
+<br />
 
-```bash
-pip install -r requiremets.txt
-```
+## 🌟 The Pipeline Features
 
-### 2. Set Up Groq API Key
+<table>
+  <tr>
+    <td align="center">📄<br/><b>Neural Extractor</b></td>
+    <td>High-fidelity PDF parsing and semantic segmentation optimized for financial documents.</td>
+  </tr>
+  <tr>
+    <td align="center">⚡<br/><b>Hyper Retrieval</b></td>
+    <td>Ultra-fast topological searches utilizing FAISS in multi-dimensional vector space.</td>
+  </tr>
+  <tr>
+    <td align="center">🧠<br/><b>Synapse LLM</b></td>
+    <td>Connected to Groq's high-speed inference engine powered by Meta's Llama 3 70B models.</td>
+  </tr>
+  <tr>
+    <td align="center">🌐<br/><b>Holo-Interface</b></td>
+    <td>A totally dark-mode, glassmorphic React Web Application for interactive and immersive analysis.</td>
+  </tr>
+</table>
 
-Get your API key from [Groq Console](https://console.groq.com/):
+<br />
 
-```bash
-export GROQ_API_KEY="your-api-key-here"
-```
+## 🛠️ Initialization Protocols
 
-Or on Windows:
-```cmd
-set GROQ_API_KEY=your-api-key-here
-```
+<details>
+<summary><b>🔥 Quick Setup (Click to expand)</b></summary>
 
-## Usage
-
-### Quick Start: Create Embeddings
-
-Generate embeddings from the PDF document:
+### 1. Initialize the Core Envs
+Bootstrap your workspace by downloading the dependencies.
 
 ```bash
-python main.py embed
+pip install -r requirements.txt
 ```
 
-Options:
-- `--pdf-path <path>`: Specify custom PDF path
-- `-v, --verbose`: Enable verbose logging
-
-### Query the RAG System
-
-Ask a question about the document:
+### 2. Inject API Keys
+Obtain your temporal key from the [Groq Console](https://console.groq.com/).
 
 ```bash
-python main.py query "What was the revenue growth?"
+# Mac/Linux Environments
+export GROQ_API_KEY="gsk_..."
+
+# Windows Environments
+set GROQ_API_KEY="gsk_..."
 ```
+</details>
 
-Options:
-- `--embeddings <path>`: Path to embeddings CSV file
-- `--json`: Output as JSON
-- `-v, --verbose`: Enable verbose logging
+<br />
 
-### Interactive Mode
+## 💻 Interfacing
 
-For interactive querying:
+### Option A: The Web Interface (Recommended)
+We've built a highly futuristic web application on top of the RAG Core.
 
+1. **Ignite the Backend API:**
+```bash
+uvicorn api:app --reload
+```
+2. **Launch the React Frontend:**
+Open a new terminal tab and fire up Vite.
+```bash
+cd frontend
+npm install
+npm run dev
+```
+Navigate to `http://localhost:5173` to access the neural link UI!
+
+---
+
+### Option B: The CLI Backbone
+If you prefer raw terminal input, utilize the robust CLI system via `main.py`.
+
+<details>
+<summary><kbd>Embed Memory</kbd> Extract and chunk your local PDF data.</summary>
+<br>
+
+Encode the underlying data matrix:
+```bash
+python main.py embed --pdf-path "Data/TCS-annual-report-2024-2025.pdf"
+```
+</details>
+
+<details>
+<summary><kbd>Query Node</kbd> Execute one-shot RAG inference.</summary>
+<br>
+
+Ask explicit questions:
+```bash
+python main.py query "What was the revenue growth of the company?" --json
+```
+</details>
+
+<details>
+<summary><kbd>Interactive Loop</kbd> Continuous terminal session.</summary>
+<br>
+
+Enter the terminal matrix:
 ```bash
 python main.py interactive
 ```
+</details>
 
-This starts an interactive session where you can ask multiple questions. Type `exit` or `quit` to exit.
+<br />
 
-## Configuration
+## ⚙️ Core Configuration
 
-Edit `src/config.py` to customize:
+The central nervous system of the RAG pipeline is managed inside `src/config.py`. 
 
-- **PDFConfig**: PDF file path and page offset
-- **ChunkingConfig**: Chunk size and splitting parameters
-- **EmbeddingConfig**: Embedding model and device (CPU/GPU)
-- **RAGConfig**: LLM model and retrieval parameters
-- **StorageConfig**: Output file paths
-
-Example:
+Modify the dataclasses to shift compute paradigms:
 ```python
 from src.config import Config
 
 config = Config()
-config.pdf.pdf_path = "path/to/your/document.pdf"
-config.embedding.device = "cuda"  # Use GPU
-config.rag.top_k_results = 10  # Retrieve top 10 chunks
+# Re-route your parsing
+config.pdf.pdf_path = "path/to/classified/document.pdf"
+# Switch to GPU compute for FAISS
+config.embedding.device = "cuda"
+# Widen the attention retrieval scope
+config.rag.top_k_results = 10 
 ```
 
-## API Usage
+<br />
 
-Use the production modules programmatically:
+## 🏗️ Architecture
 
-### Extract and Embed PDF
-
-```python
-from src.pdf_extractor import open_and_read_pdf, create_chunks_from_sentences
-from src.embedding import EmbeddingGenerator, save_chunks_to_csv
-
-# Extract text
-pages = open_and_read_pdf("document.pdf")
-
-# Create chunks
-chunks = create_chunks_from_sentences(pages, chunk_size=6)
-
-# Generate embeddings
-embedder = EmbeddingGenerator(device="cpu")
-chunks = embedder.encode_chunks(chunks)
-
-# Save
-save_chunks_to_csv(chunks, "embeddings.csv")
+```mermaid
+graph TD
+    A[Raw PDF] -->|pdf_extractor.py| B[Segmented Text Chunks]
+    B -->|embedding.py: mpnet-base| C[(FAISS Vector Matrix)]
+    C -->|rag.py: Semantic Search| D[Retrieved Context Context]
+    D --> E[Groq API / Llama 3 70B]
+    E --> F{FastAPI Backend}
+    F -->|JSON| G[React Web UI]
 ```
 
-### Query with RAG
+<br />
 
-```python
-from src.embedding import load_chunks_from_csv, normalize_embeddings
-from src.rag import RAGPipeline
-from sentence_transformers import SentenceTransformer
-import numpy as np
+## 🛡️ Telemetry & Troubleshooting
 
-# Load data
-chunks, embeddings = load_chunks_from_csv("embeddings.csv")
-embeddings = normalize_embeddings(embeddings).astype(np.float32)
+- <kbd>ModuleNotFoundError</kbd>: Ensure `requirements.txt` is installed and you are executing from the root directory.
+- <kbd>Out of Memory</kbd>: Downscale by altering `config.chunking.sentence_chunk_size` or switching to `device="cpu"` inside the embedding config.
+- <kbd>Latency</kbd>: Offload FAISS index matching to GPU memory by installing `faiss-gpu`.
 
-# Create pipeline
-embedding_model = SentenceTransformer("all-mpnet-base-v2")
-pipeline = RAGPipeline(
-    chunks=chunks,
-    embeddings=embeddings,
-    embedding_model=embedding_model,
-    groq_api_key="your-api-key",
-    top_k=8
-)
+<br />
 
-# Query
-result = pipeline.query("Your question here?")
-print(result["answer"])
-```
-
-## Module Documentation
-
-### `config.py`
-Configuration dataclasses for all components. Loads `GROQ_API_KEY` from environment.
-
-### `pdf_extractor.py`
-- `open_and_read_pdf()`: Extract text from PDF
-- `create_chunks_from_sentences()`: Split text into chunks
-- `add_sentences_to_pages()`: Split text into sentences
-
-### `embedding.py`
-- `EmbeddingGenerator`: Generate embeddings using SentenceTransformer
-- `save_chunks_to_csv()`: Save chunks with embeddings
-- `load_chunks_from_csv()`: Load chunks from CSV
-- `normalize_embeddings()`: L2 normalization for cosine similarity
-
-### `rag.py`
-- `FAISSRetriever`: Semantic similarity search using FAISS
-- `RAGPipeline`: End-to-end RAG pipeline (retrieve → generate)
-  - `retrieve()`: Get top-k relevant chunks
-  - `generate()`: Generate answer using LLM
-  - `query()`: Full pipeline (retrieve + generate)
-
-## Performance Tips
-
-1. **GPU Support**: Install `faiss-gpu` instead of `faiss-cpu` for faster retrieval
-   ```bash
-   pip install faiss-gpu
-   ```
-
-2. **Larger Models**: Use better embedding models for improved quality
-   ```python
-   config.embedding.model_name = "all-mpnet-base-v2"  # Current default
-   # Or try: "all-MiniLM-L6-v2" (faster), "all-mpnet-base-v2" (better quality)
-   ```
-
-3. **Chunk Size**: Adjust chunk size based on your document
-   - Smaller chunks: More precise retrieval, more chunks to process
-   - Larger chunks: Faster processing, less precise
-
-## Troubleshooting
-
-### ModuleNotFoundError
-Make sure you're in the project root directory and dependencies are installed:
-```bash
-pip install -r requiremets.txt
-```
-
-### GROQ_API_KEY not found
-Set the environment variable:
-```bash
-export GROQ_API_KEY="your-key"
-```
-
-### Out of Memory
-- Reduce chunk size
-- Use smaller embedding model
-- Use CPU instead of GPU via config
-
-### Slow Inference
-- Check device selection (GPU recommended)
-- Reduce `top_k_results` for faster retrieval
-- Use faster LLM model
-
-## Converting from Notebooks
-
-The original notebooks have been converted to production modules:
-
-**Part 1 (Embedding)** → `src/pdf_extractor.py` + `src/embedding.py`
-- PDF extraction
-- Text chunking
-- Embedding generation
-
-**Part 2 (Result Generator)** → `src/rag.py`
-- FAISS indexing
-- Query retrieval
-- LLM-based generation
-
-Benefits of modular approach:
-✅ Reusable components
-✅ Better error handling
-✅ Type safety
-✅ Comprehensive logging
-✅ Easy testing
-✅ Production-ready
-
-## Testing
-
-Example test queries for TCS Annual Report:
-
-```bash
-python main.py query "Which vertical contributed the highest revenue?"
-python main.py query "What is the company's strategy for AI and cloud?"
-python main.py query "How did margins change compared to last year?"
-```
-
-## License
-
-This project uses libraries with different licenses:
-- PyMuPDF: AGPL-3.0 (consider commercial implications)
-- SentenceTransformers: Apache 2.0
-- Transformers: Apache 2.0
-- FAISS: MIT
-- Groq Python SDK: Apache 2.0
-
-## Contributing
-
-Improvements welcome! Areas for enhancement:
-- Add support for multiple documents
-- Implement caching for embeddings
-- Add batch query support
-- Implement result ranking and filtering
-- Add UI interface
-
-## Support
-
-For issues or questions:
-1. Check the troubleshooting section
-2. Review logs with `-v` flag for debugging
-3. Verify API key and dependencies are correct
+---
+<div align="center">
+  <i>Developed dynamically with Advanced Agentic Analysis.</i>
+</div>
