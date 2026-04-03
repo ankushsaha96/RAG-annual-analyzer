@@ -33,7 +33,6 @@ from src.embedding import (
     save_chunks_to_csv,
     load_chunks_from_csv,
     normalize_embeddings,
-    embeddings_to_tensor,
 )
 from src.rag import RAGPipeline
 

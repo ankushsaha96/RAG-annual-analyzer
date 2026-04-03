@@ -15,7 +15,6 @@ warnings.filterwarnings('ignore', category=FutureWarning)
 
 import numpy as np
 import pandas as pd
-import torch
 from openai import OpenAI
 from src.config import get_config
 

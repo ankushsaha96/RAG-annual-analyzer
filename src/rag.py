@@ -17,8 +17,6 @@ warnings.filterwarnings('ignore', category=FutureWarning)
 import numpy as np
 import faiss
 from groq import Groq
-from transformers import AutoTokenizer
-from sentence_transformers import SentenceTransformer
 
 logger = logging.getLogger(__name__)
 
@@ -130,18 +128,13 @@ class RAGPipeline:
         self.chunks = chunks
         self.embedding_model = embedding_model
         self.top_k = top_k
+        self.tokenizer = None
         
         try:
             self.retriever = FAISSRetriever(embeddings)
             self.groq_client = Groq(api_key=groq_api_key)
             self.llm_model = llm_model
             
-            try:
-                self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_model)
-            except Exception as token_e:
-                logger.warning(f"Failed to load tokenizer {tokenizer_model}: {token_e}. Will use raw prompt fallback.")
-                self.tokenizer = None
-                
             logger.info("RAG pipeline initialized successfully")
         except Exception as e:
             logger.error(f"Error initializing RAG pipeline: {e}")
@@ -240,23 +233,6 @@ Return JSON:
 {{"answer": "…", "confidence": "high/medium/low", "source": ""}}"""
         
         base_prompt = base_prompt.format(context=context, query=query)
-        
-        # Apply chat template from tokenizer
-        dialogue_template = [
-            {"role": "user", "content": base_prompt}
-        ]
-        
-        if getattr(self, 'tokenizer', None) is not None:
-            try:
-                prompt = self.tokenizer.apply_chat_template(
-                    conversation=dialogue_template,
-                    tokenize=False,
-                    add_generation_prompt=True
-                )
-                return prompt
-            except Exception as e:
-                logger.warning(f"Error applying chat template: {e}, using raw prompt")
-                
         return base_prompt
     
     def generate(self, query: str, retrieved_chunks: Optional[List[Dict[str, Any]]] = None) -> str:
