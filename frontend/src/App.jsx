@@ -4,7 +4,7 @@ import { AlertCircle, User, Bot, ShieldCheck } from 'lucide-react';
 import { ChatInput } from './components/ChatInput';
 import './App.css';
 
-const API_URL = 'http://localhost:8000'; // Define backend URL
+const API_URL = 'https://rag-annual-report-analyzer.onrender.com/'; // Define backend URL
 
 function App() {
   const [messages, setMessages] = useState([]);
@@ -41,11 +41,11 @@ function App() {
       }
 
       const data = await response.json();
-      
+
       // Parse the JSON answer if available, otherwise fallback
       let answerText = data.answer;
       let confidence = null;
-      
+
       if (data.answer_json && data.answer_json.answer) {
         answerText = data.answer_json.answer;
         if (data.answer_json.confidence) {
@@ -58,22 +58,22 @@ function App() {
           if (parsed.answer) {
             answerText = parsed.answer;
             if (parsed.confidence) {
-               confidence = parsed.confidence;
+              confidence = parsed.confidence;
             }
           }
-        } catch(e) {
+        } catch (e) {
           // not valid JSON, just use as string
         }
       }
 
-      const botMsg = { 
-        role: 'assistant', 
-        content: answerText, 
+      const botMsg = {
+        role: 'assistant',
+        content: answerText,
         confidence: confidence,
         chunks: data.chunks,
         id: Date.now() + 1
       };
-      
+
       setMessages(prev => [...prev, botMsg]);
     } catch (err) {
       console.error("Failed to fetch query results", err);
@@ -98,77 +98,77 @@ function App() {
       <main className="main-content" style={{ paddingBottom: '120px' }}>
         {messages.length === 0 && !isLoading && (
           <div className="glass-panel animate-fade-in" style={{ textAlign: 'center', padding: '4rem 2rem', borderStyle: 'dashed' }}>
-             <div style={{ margin: '0 auto', width: '64px', height: '64px', borderRadius: '50%', background: 'var(--bg-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem', color: 'var(--accent-color)' }}>
-               <span style={{ fontSize: '1.5rem' }}>✨</span>
-             </div>
-             <h3 style={{ marginBottom: '0.5rem', fontSize: '1.25rem' }}>Ready to analyze</h3>
-             <p style={{ color: 'var(--text-secondary)' }}>Ask your first question about the annual results below.</p>
+            <div style={{ margin: '0 auto', width: '64px', height: '64px', borderRadius: '50%', background: 'var(--bg-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem', color: 'var(--accent-color)' }}>
+              <span style={{ fontSize: '1.5rem' }}>✨</span>
+            </div>
+            <h3 style={{ marginBottom: '0.5rem', fontSize: '1.25rem' }}>Ready to analyze</h3>
+            <p style={{ color: 'var(--text-secondary)' }}>Ask your first question about the annual results below.</p>
           </div>
         )}
 
         <div className="chat-history">
           {messages.map((msg) => (
             <div key={msg.id} className={`chat-bubble-container ${msg.role === 'user' ? 'user-container' : 'bot-container'}`}>
-              
+
               {msg.role === 'user' && (
-                 <div className="chat-bubble user-bubble animate-fade-in">
-                    <User size={18} style={{ marginRight: '8px', display: 'inline-block', verticalAlign: 'middle', opacity: 0.8 }} />
-                    {msg.content}
-                 </div>
+                <div className="chat-bubble user-bubble animate-fade-in">
+                  <User size={18} style={{ marginRight: '8px', display: 'inline-block', verticalAlign: 'middle', opacity: 0.8 }} />
+                  {msg.content}
+                </div>
               )}
 
               {msg.role === 'assistant' && (
-                 <div className="chat-bubble bot-bubble animate-fade-in">
-                    <div style={{ display: 'flex', alignItems: 'center', marginBottom: '12px', gap: '10px' }}>
-                      <div className="bot-avatar">
-                        <Bot size={20} />
+                <div className="chat-bubble bot-bubble animate-fade-in">
+                  <div style={{ display: 'flex', alignItems: 'center', marginBottom: '12px', gap: '10px' }}>
+                    <div className="bot-avatar">
+                      <Bot size={20} />
+                    </div>
+                    <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>Analyzer API</span>
+
+                    {msg.confidence && (
+                      <div className={`confidence-bubble confidence-${msg.confidence.toLowerCase()}`}>
+                        <ShieldCheck size={14} />
+                        <span>{msg.confidence} confidence</span>
                       </div>
-                      <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>Analyzer API</span>
-                      
-                      {msg.confidence && (
-                        <div className={`confidence-bubble confidence-${msg.confidence.toLowerCase()}`}>
-                          <ShieldCheck size={14} />
-                          <span>{msg.confidence} confidence</span>
-                        </div>
-                      )}
-                    </div>
-                    
-                    <div className="markdown-content">
-                      <ReactMarkdown>{msg.content}</ReactMarkdown>
-                    </div>
-                 </div>
+                    )}
+                  </div>
+
+                  <div className="markdown-content">
+                    <ReactMarkdown>{msg.content}</ReactMarkdown>
+                  </div>
+                </div>
               )}
 
               {msg.role === 'error' && (
-                 <div className="chat-bubble error-bubble animate-fade-in">
-                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#f87171', fontWeight: 'bold', marginBottom: '0.5rem' }}>
-                      <AlertCircle size={20} />
-                      Error
-                   </div>
-                   {msg.content}
-                 </div>
+                <div className="chat-bubble error-bubble animate-fade-in">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#f87171', fontWeight: 'bold', marginBottom: '0.5rem' }}>
+                    <AlertCircle size={20} />
+                    Error
+                  </div>
+                  {msg.content}
+                </div>
               )}
             </div>
           ))}
-          
+
           {isLoading && (
             <div className={`chat-bubble-container bot-container`}>
-               <div className="chat-bubble bot-bubble animate-fade-in" style={{ padding: '1.5rem' }}>
-                 <div style={{ display: 'flex', alignItems: 'center', marginBottom: '12px', gap: '10px' }}>
-                    <div className="bot-avatar" style={{ animation: 'pulse-glow 1.5s infinite' }}>
-                      <Bot size={20} />
-                    </div>
-                    <span style={{ fontWeight: 600, color: 'var(--text-secondary)' }}>Analyzing context...</span>
-                 </div>
-                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem' }}>
-                    <div style={{ height: '12px', width: '80%', background: 'var(--bg-tertiary)', borderRadius: '6px', animation: 'pulse-glow 1.5s infinite' }}></div>
-                    <div style={{ height: '12px', width: '100%', background: 'var(--bg-tertiary)', borderRadius: '6px', animation: 'pulse-glow 1.5s infinite', animationDelay: '0.2s' }}></div>
-                    <div style={{ height: '12px', width: '60%', background: 'var(--bg-tertiary)', borderRadius: '6px', animation: 'pulse-glow 1.5s infinite', animationDelay: '0.4s' }}></div>
-                 </div>
-               </div>
+              <div className="chat-bubble bot-bubble animate-fade-in" style={{ padding: '1.5rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', marginBottom: '12px', gap: '10px' }}>
+                  <div className="bot-avatar" style={{ animation: 'pulse-glow 1.5s infinite' }}>
+                    <Bot size={20} />
+                  </div>
+                  <span style={{ fontWeight: 600, color: 'var(--text-secondary)' }}>Analyzing context...</span>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem' }}>
+                  <div style={{ height: '12px', width: '80%', background: 'var(--bg-tertiary)', borderRadius: '6px', animation: 'pulse-glow 1.5s infinite' }}></div>
+                  <div style={{ height: '12px', width: '100%', background: 'var(--bg-tertiary)', borderRadius: '6px', animation: 'pulse-glow 1.5s infinite', animationDelay: '0.2s' }}></div>
+                  <div style={{ height: '12px', width: '60%', background: 'var(--bg-tertiary)', borderRadius: '6px', animation: 'pulse-glow 1.5s infinite', animationDelay: '0.4s' }}></div>
+                </div>
+              </div>
             </div>
           )}
-          
+
           <div ref={messagesEndRef} />
         </div>
       </main>
