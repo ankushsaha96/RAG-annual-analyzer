@@ -4,7 +4,7 @@ import { AlertCircle, User, Bot, ShieldCheck } from 'lucide-react';
 import { ChatInput } from './components/ChatInput';
 import './App.css';
 
-const API_URL = 'https://rag-annual-report-analyzer.onrender.com/'; // Define backend URL
+const API_URL = 'https://rag-annual-report-analyzer.onrender.com'; // Define backend URL
 
 function App() {
   const [messages, setMessages] = useState([]);
@@ -79,7 +79,7 @@ function App() {
       console.error("Failed to fetch query results", err);
       const errorMsg = {
         role: 'error',
-        content: "Failed to connect to the RAG backend. Please ensure the server is running on port 8000.",
+        content: "Failed to connect to the RAG backend. If using Render, the server might be waking up (can take ~50 seconds). Please try again shortly.",
         id: Date.now() + 1
       };
       setMessages(prev => [...prev, errorMsg]);
