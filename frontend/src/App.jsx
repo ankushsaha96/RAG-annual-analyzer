@@ -134,7 +134,38 @@ function App() {
                   </div>
 
                   <div className="markdown-content">
-                    <ReactMarkdown>{msg.content}</ReactMarkdown>
+                    <ReactMarkdown
+                      components={{
+                        a: ({node, ...props}) => {
+                          if (props.href && props.href.startsWith('#page-')) {
+                            const pageNum = parseInt(props.href.replace('#page-', ''));
+                            // Use parsed integer comparison since types may vary
+                            const chunk = msg.chunks?.find(c => parseInt(c.page_number) === pageNum);
+                            
+                            return (
+                              <span className="tooltip-container">
+                                <a {...props} className="page-link" onClick={e => e.preventDefault()}>
+                                  {props.children}
+                                </a>
+                                {chunk && (
+                                  <span className="tooltip-content">
+                                    <div className="tooltip-header">
+                                      <span style={{ fontSize: '1.1rem' }}>📄</span> Page {pageNum} Source
+                                    </div>
+                                    <div style={{ color: 'var(--text-secondary)' }}>
+                                      "... {chunk.text.length > 250 ? chunk.text.substring(0, 250) + '...' : chunk.text} ..."
+                                    </div>
+                                  </span>
+                                )}
+                              </span>
+                            );
+                          }
+                          return <a {...props} target="_blank" rel="noopener noreferrer" />;
+                        }
+                      }}
+                    >
+                      {msg.content?.replace(/\(Page (\d+)\)/gi, '[Page $1](#page-$1)')}
+                    </ReactMarkdown>
                   </div>
                 </div>
               )}
