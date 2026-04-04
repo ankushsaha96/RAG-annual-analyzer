@@ -13,6 +13,8 @@
 
 *Seamlessly extract knowledge from deep inside annual reports using hyper-fast vector search and state-of-the-art LLMs.*
 
+**🌐 Live Demo:** [https://rag-annual-analyzer.vercel.app/](https://rag-annual-analyzer.vercel.app/)
+
 </div>
 
 ---
