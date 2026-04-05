@@ -72,6 +72,26 @@ class StorageConfig:
 
 
 @dataclass
+class QdrantConfig:
+    """Configuration for Qdrant Vector Database."""
+    
+    url: Optional[str] = None
+    api_key: Optional[str] = None
+    collection_name: str = "annual_reports"
+    vector_size: int = 2048
+    
+    def __post_init__(self):
+        """Load Qdrant credentials from environment if not provided."""
+        if not self.url:
+            self.url = os.getenv("QDRANT_URL")
+        if not self.api_key:
+            self.api_key = os.getenv("QDRANT_API_KEY")
+        if not self.url or not self.api_key:
+            logger = logging.getLogger(__name__)
+            logger.warning("QDRANT_URL or QDRANT_API_KEY not set. Qdrant features will be unavailable.")
+
+
+@dataclass
 class Config:
     """Main configuration class combining all configs."""
     
@@ -80,6 +100,7 @@ class Config:
     embedding: EmbeddingConfig
     rag: RAGConfig
     storage: StorageConfig
+    qdrant: QdrantConfig
     
     def __init__(self):
         """Initialize configuration with defaults."""
@@ -88,6 +109,7 @@ class Config:
         self.embedding = EmbeddingConfig()
         self.rag = RAGConfig()
         self.storage = StorageConfig()
+        self.qdrant = QdrantConfig()
 
 
 def get_config() -> Config:

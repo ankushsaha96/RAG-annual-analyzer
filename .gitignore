@@ -8,5 +8,6 @@ __pycache__/
 
 # Mac
 .DS_Store
+Data/*
 
 # Data is required for deployment to Render so that startup is instant!
