@@ -19,6 +19,7 @@ numpy<2.0
 # Utilities
 tqdm==4.67.1
 python-dotenv>=1.0.0
+requests>=2.31.0
 
 # Web Server
 fastapi>=0.109.0
