@@ -28,7 +28,7 @@ export function CompanySelect({ onSubmit, isLoading }) {
           <Sparkles size={32} />
         </div>
 
-        <h1 className="select-title">RAG Analyzer</h1>
+        <h1 className="select-title">FinSight AI</h1>
         <p className="select-subtitle">
           Unlock intelligent insights from annual reports.<br />
           Enter the company and financial year to begin.

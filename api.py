@@ -11,8 +11,8 @@ from src.qdrant_service import QdrantService
 
 # Initialize FastAPI app
 app = FastAPI(
-    title="RAG Annual Result Analyzer API",
-    description="API for querying annual reports via Qdrant VectorDB",
+    title="FinSight AI API",
+    description="AI-powered annual report analysis via Qdrant VectorDB",
     version="2.0.0"
 )
 

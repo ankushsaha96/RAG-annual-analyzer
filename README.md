@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🚀 RAG Annual Report Analyzer
+# 🚀 FinSight AI
 
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.10+-3776AB.svg?style=for-the-badge&logo=python&logoColor=white" alt="Python Badge" />
@@ -11,7 +11,7 @@
   <img src="https://img.shields.io/badge/Groq-Llama_3.3_70B-F55036.svg?style=for-the-badge&logo=groq&logoColor=white" alt="Groq Badge" />
 </p>
 
-### A Production-Ready Retrieval Augmented Generation System
+### AI-Powered Annual Report Intelligence
 
 *Seamlessly extract knowledge from deep inside annual reports using vector search and state-of-the-art LLMs — fully deployed and live.*
 
@@ -182,13 +182,13 @@ config.rag.top_k_results         # Number of chunks to retrieve
 Build and run the backend locally with Docker:
 
 ```bash
-docker build -t rag-analyzer .
+docker build -t finsight-ai .
 docker run -p 8000:8000 \
   -e GROQ_API_KEY="gsk_..." \
   -e NVIDIA_API_KEY="nvapi-..." \
   -e QDRANT_URL="https://..." \
   -e QDRANT_API_KEY="..." \
-  rag-analyzer
+  finsight-ai
 ```
 
 <br />
@@ -204,5 +204,5 @@ docker run -p 8000:8000 \
 
 ---
 <div align="center">
-  <i>Built with ❤️ using RAG, Vector Search, and Advanced Agentic Coding.</i>
+  <i>Built with ❤️ by FinSight AI — RAG, Vector Search, and Advanced Agentic Coding.</i>
 </div>

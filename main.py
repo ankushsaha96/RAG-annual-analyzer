@@ -1,4 +1,4 @@
-"""Main CLI for RAG Annual Result Analyzer."""
+"""Main CLI for FinSight AI."""
 
 # ===== MEMORY AND SAFETY FIXES FOR macOS =====
 # These environment variables must be set BEFORE importing torch/faiss
@@ -214,7 +214,7 @@ def interactive_mode(embeddings_path: Optional[str] = None, verbose: bool = Fals
     rag_pipeline = load_rag_pipeline(embeddings_path, verbose)
     
     logger.info("\n" + "="*70)
-    logger.info("RAG Annual Result Analyzer - Interactive Mode")
+    logger.info("FinSight AI - Interactive Mode")
     logger.info("="*70)
     logger.info("Type 'exit' or 'quit' to exit\n")
     
@@ -254,7 +254,7 @@ def interactive_mode(embeddings_path: Optional[str] = None, verbose: bool = Fals
 def main():
     """Main CLI entry point."""
     parser = argparse.ArgumentParser(
-        description="RAG Annual Result Analyzer - Extract embeddings and query documents"
+        description="FinSight AI - Extract embeddings and query documents"
     )
     
     subparsers = parser.add_subparsers(dest="command", help="Command to run")

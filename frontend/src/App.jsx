@@ -185,7 +185,7 @@ function App() {
           <button onClick={handleBack} className="back-button" title="Change company">
             <ArrowLeft size={18} />
           </button>
-          <h1 style={{ fontSize: messages.length > 0 ? '2rem' : '3rem' }}>RAG Analyzer</h1>
+          <h1 style={{ fontSize: messages.length > 0 ? '2rem' : '3rem' }}>FinSight AI</h1>
         </div>
         <div className="company-badge animate-fade-in">
           <span className="badge-dot"></span>

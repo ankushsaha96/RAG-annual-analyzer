@@ -1,4 +1,4 @@
-"""Configuration management for RAG Annual Result Analyzer."""
+"""Configuration management for FinSight AI."""
 
 import os
 from dataclasses import dataclass
