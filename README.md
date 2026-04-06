@@ -1,19 +1,23 @@
 <div align="center">
 
-# 🚀 RAG Analyzer Neural Core
+# 🚀 RAG Annual Report Analyzer
 
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.10+-3776AB.svg?style=for-the-badge&logo=python&logoColor=white" alt="Python Badge" />
   <img src="https://img.shields.io/badge/FastAPI-009688.svg?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI Badge" />
   <img src="https://img.shields.io/badge/Vite-React-646CFF.svg?style=for-the-badge&logo=vite&logoColor=white" alt="Vite Badge" />
+  <img src="https://img.shields.io/badge/Qdrant-Cloud-DC382D.svg?style=for-the-badge&logo=qdrant&logoColor=white" alt="Qdrant Badge" />
+  <img src="https://img.shields.io/badge/NVIDIA-NeMo_Embeddings-76B900.svg?style=for-the-badge&logo=nvidia&logoColor=white" alt="NVIDIA Badge" />
   <img src="https://img.shields.io/badge/Groq-Llama_3.3_70B-F55036.svg?style=for-the-badge&logo=groq&logoColor=white" alt="Groq Badge" />
 </p>
 
-### A Next-Generation Retrieval Augmented Generation System
+### A Production-Ready Retrieval Augmented Generation System
 
-*Seamlessly extract knowledge from deep inside annual reports using hyper-fast vector search and state-of-the-art LLMs.*
+*Seamlessly extract knowledge from deep inside annual reports using vector search and state-of-the-art LLMs — fully deployed and live.*
 
-**🌐 Live Demo:** [https://rag-annual-analyzer.vercel.app/](https://rag-annual-analyzer.vercel.app/)
+**🌐 Live App:** [rag-annual-analyzer.vercel.app](https://rag-annual-analyzer.vercel.app/)
+&nbsp;|&nbsp;
+**⚡ Backend API:** [rag-annual-report-analyzer.onrender.com](https://rag-annual-report-analyzer.onrender.com/docs)
 
 </div>
 
@@ -21,126 +25,30 @@
 
 <br />
 
-## 🌟 The Pipeline Features
+## 🌟 Key Features
 
 <table>
   <tr>
-    <td align="center">📄<br/><b>Neural Extractor</b></td>
-    <td>High-fidelity PDF parsing and semantic segmentation optimized for financial documents.</td>
+    <td align="center">📄<br/><b>Auto-Fetch Reports</b></td>
+    <td>Automatically searches and downloads annual reports from <b>NSE India</b> given a company name and financial year. No manual PDF uploads needed.</td>
   </tr>
   <tr>
-    <td align="center">⚡<br/><b>Hyper Retrieval</b></td>
-    <td>Ultra-fast topological searches utilizing FAISS in multi-dimensional vector space.</td>
+    <td align="center">🧬<br/><b>NVIDIA NeMo Embeddings</b></td>
+    <td>Uses NVIDIA's <code>NV-Embed-QA</code> model via the Integrate API for high-quality 1024-dimensional embeddings optimized for retrieval.</td>
   </tr>
   <tr>
-    <td align="center">🧠<br/><b>Synapse LLM</b></td>
-    <td>Connected to Groq's high-speed inference engine powered by Meta's Llama 3 70B models.</td>
+    <td align="center">⚡<br/><b>Qdrant Vector Search</b></td>
+    <td>Cloud-hosted vector database with filtered search by company and year. Embeddings persist across sessions — no re-indexing needed.</td>
   </tr>
   <tr>
-    <td align="center">🌐<br/><b>Holo-Interface</b></td>
-    <td>A totally dark-mode, glassmorphic React Web Application for interactive and immersive analysis.</td>
+    <td align="center">🧠<br/><b>Groq LLM Inference</b></td>
+    <td>Connected to Groq's ultra-fast inference engine running Meta's <b>Llama 3.3 70B</b> for grounded, citation-backed answers.</td>
+  </tr>
+  <tr>
+    <td align="center">🌐<br/><b>Modern React UI</b></td>
+    <td>Dark-mode, glassmorphic chat interface with inline page citations, confidence indicators, and source tooltips.</td>
   </tr>
 </table>
-
-<br />
-
-## 🛠️ Initialization Protocols
-
-<details>
-<summary><b>🔥 Quick Setup (Click to expand)</b></summary>
-
-### 1. Initialize the Core Envs
-Bootstrap your workspace by downloading the dependencies.
-
-```bash
-pip install -r requirements.txt
-```
-
-### 2. Inject API Keys
-Obtain your temporal key from the [Groq Console](https://console.groq.com/).
-
-```bash
-# Mac/Linux Environments
-export GROQ_API_KEY="gsk_..."
-
-# Windows Environments
-set GROQ_API_KEY="gsk_..."
-```
-</details>
-
-<br />
-
-## 💻 Interfacing
-
-### Option A: The Web Interface (Recommended)
-We've built a highly futuristic web application on top of the RAG Core.
-
-1. **Ignite the Backend API:**
-```bash
-uvicorn api:app --reload
-```
-2. **Launch the React Frontend:**
-Open a new terminal tab and fire up Vite.
-```bash
-cd frontend
-npm install
-npm run dev
-```
-Navigate to `http://localhost:5173` to access the neural link UI!
-
----
-
-### Option B: The CLI Backbone
-If you prefer raw terminal input, utilize the robust CLI system via `main.py`.
-
-<details>
-<summary><kbd>Embed Memory</kbd> Extract and chunk your local PDF data.</summary>
-<br>
-
-Encode the underlying data matrix:
-```bash
-python main.py embed --pdf-path "Data/TCS-annual-report-2024-2025.pdf"
-```
-</details>
-
-<details>
-<summary><kbd>Query Node</kbd> Execute one-shot RAG inference.</summary>
-<br>
-
-Ask explicit questions:
-```bash
-python main.py query "What was the revenue growth of the company?" --json
-```
-</details>
-
-<details>
-<summary><kbd>Interactive Loop</kbd> Continuous terminal session.</summary>
-<br>
-
-Enter the terminal matrix:
-```bash
-python main.py interactive
-```
-</details>
-
-<br />
-
-## ⚙️ Core Configuration
-
-The central nervous system of the RAG pipeline is managed inside `src/config.py`. 
-
-Modify the dataclasses to shift compute paradigms:
-```python
-from src.config import Config
-
-config = Config()
-# Re-route your parsing
-config.pdf.pdf_path = "path/to/classified/document.pdf"
-# Switch to GPU compute for FAISS
-config.embedding.device = "cuda"
-# Widen the attention retrieval scope
-config.rag.top_k_results = 10 
-```
 
 <br />
 
@@ -148,25 +56,153 @@ config.rag.top_k_results = 10
 
 ```mermaid
 graph TD
-    A[Raw PDF] -->|pdf_extractor.py| B[Segmented Text Chunks]
-    B -->|embedding.py: mpnet-base| C[(FAISS Vector Matrix)]
-    C -->|rag.py: Semantic Search| D[Retrieved Context Context]
-    D --> E[Groq API / Llama 3 70B]
-    E --> F{FastAPI Backend}
-    F -->|JSON| G[React Web UI]
+    A[User Input: Company + Year] -->|NSE API| B[Download Annual Report PDF]
+    B -->|PyMuPDF| C[Extract & Chunk Text]
+    C -->|NVIDIA NeMo API| D[Generate Embeddings]
+    D -->|Upsert| E[(Qdrant Cloud VectorDB)]
+    F[User Query] -->|NVIDIA NeMo API| G[Query Embedding]
+    G -->|Filtered Search| E
+    E -->|Top-K Chunks| H[Context Assembly]
+    H -->|Prompt| I[Groq / Llama 3.3 70B]
+    I -->|JSON Response| J[FastAPI Backend - Render]
+    J -->|HTTPS| K[React Frontend - Vercel]
 ```
 
 <br />
 
-## 🛡️ Telemetry & Troubleshooting
+## 🛠️ Tech Stack
 
-- <kbd>ModuleNotFoundError</kbd>: Ensure `requirements.txt` is installed and you are executing from the root directory.
-- <kbd>Out of Memory</kbd>: Downscale by altering `config.chunking.sentence_chunk_size` or switching to `device="cpu"` inside the embedding config.
-- <kbd>Latency</kbd>: Offload FAISS index matching to GPU memory by installing `faiss-gpu`.
+| Layer | Technology | Purpose |
+|-------|-----------|---------|
+| **Frontend** | React + Vite | Chat UI with markdown rendering |
+| **Backend** | FastAPI + Uvicorn | REST API with async endpoints |
+| **Vector DB** | Qdrant Cloud | Persistent vector storage with filtered search |
+| **Embeddings** | NVIDIA NeMo (`NV-Embed-QA`) | 1024-dim passage/query embeddings |
+| **LLM** | Groq (Llama 3.3 70B) | Answer generation with citations |
+| **PDF Source** | NSE India API | Auto-download annual reports |
+| **Hosting** | Vercel (frontend) + Render (backend) | Production deployment |
+
+<br />
+
+## 🚀 Deployment
+
+The application is fully deployed and accessible:
+
+| Service | URL | Platform |
+|---------|-----|----------|
+| Frontend | [rag-annual-analyzer.vercel.app](https://rag-annual-analyzer.vercel.app/) | Vercel |
+| Backend API | [rag-annual-report-analyzer.onrender.com](https://rag-annual-report-analyzer.onrender.com/docs) | Render |
+| Vector DB | Qdrant Cloud | Qdrant |
+
+> [!NOTE]
+> The Render free tier may spin down after inactivity. The first request after idle could take ~30 seconds to cold-start.
+
+<br />
+
+## 💻 Local Development
+
+<details>
+<summary><b>🔥 Quick Setup (Click to expand)</b></summary>
+
+### 1. Clone & Install Dependencies
+
+```bash
+git clone https://github.com/ankushsaha96/RAG-annual-analyzer.git
+cd RAG-annual-analyzer
+pip install -r requirements.txt
+```
+
+### 2. Set Environment Variables
+
+Obtain keys from [Groq Console](https://console.groq.com/), [NVIDIA NGC](https://build.nvidia.com/), and [Qdrant Cloud](https://cloud.qdrant.io/).
+
+```bash
+# Required API keys
+export GROQ_API_KEY="gsk_..."
+export NVIDIA_API_KEY="nvapi-..."
+export QDRANT_URL="https://your-cluster.qdrant.io:6333"
+export QDRANT_API_KEY="your-qdrant-key"
+```
+
+### 3. Run the Backend
+
+```bash
+uvicorn api:app --reload
+```
+
+### 4. Run the Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Navigate to `http://localhost:5173` to access the UI.
+
+> [!IMPORTANT]
+> For local development, update `API_URL` in `frontend/src/App.jsx` to `http://localhost:8000`.
+
+</details>
+
+<br />
+
+## 📡 API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/status` | Health check |
+| `POST` | `/api/check-embeddings` | Check if embeddings exist for a company + year |
+| `POST` | `/api/create-embeddings` | Fetch report from NSE, chunk, embed, and store in Qdrant |
+| `POST` | `/api/query` | RAG query — retrieves context and generates an LLM answer |
+
+Full interactive docs available at [`/docs`](https://rag-annual-report-analyzer.onrender.com/docs) (Swagger UI).
+
+<br />
+
+## ⚙️ Configuration
+
+The pipeline is configured via dataclasses in `src/config.py`:
+
+```python
+from src.config import get_config
+
+config = get_config()
+config.qdrant.collection_name    # Qdrant collection
+config.qdrant.vector_size        # 1024 (NeMo default)
+config.embedding.model_name      # NVIDIA embedding model
+config.rag.llm_model             # Groq LLM model
+config.rag.top_k_results         # Number of chunks to retrieve
+```
+
+<br />
+
+## 🐳 Docker
+
+Build and run the backend locally with Docker:
+
+```bash
+docker build -t rag-analyzer .
+docker run -p 8000:8000 \
+  -e GROQ_API_KEY="gsk_..." \
+  -e NVIDIA_API_KEY="nvapi-..." \
+  -e QDRANT_URL="https://..." \
+  -e QDRANT_API_KEY="..." \
+  rag-analyzer
+```
+
+<br />
+
+## 🛡️ Troubleshooting
+
+- <kbd>Cold Start Delay</kbd>: Render free tier spins down after inactivity. First request may take ~30s.
+- <kbd>NSE Rate Limiting</kbd>: NSE India may block rapid requests. The fetcher uses session warming and proper headers.
+- <kbd>Embedding Errors</kbd>: Ensure `NVIDIA_API_KEY` is valid and has quota remaining.
+- <kbd>ModuleNotFoundError</kbd>: Run `pip install -r requirements.txt` from the project root.
 
 <br />
 
 ---
 <div align="center">
-  <i>Developed dynamically with Advanced Agentic Analysis.</i>
+  <i>Built with ❤️ using RAG, Vector Search, and Advanced Agentic Coding.</i>
 </div>
