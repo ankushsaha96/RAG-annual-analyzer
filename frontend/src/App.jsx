@@ -6,7 +6,7 @@ import { CompanySelect } from './components/CompanySelect';
 import { LoadingScreen } from './components/LoadingScreen';
 import './App.css';
 
-const API_URL = 'http://localhost:8000'; // Local dev; change for deployment
+const API_URL = 'https://rag-annual-report-analyzer.onrender.com'; // Deployed backend on Render
 
 function App() {
   // State machine: 'select' → 'loading' → 'chat'
