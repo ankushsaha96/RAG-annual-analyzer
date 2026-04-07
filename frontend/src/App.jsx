@@ -250,8 +250,8 @@ function App() {
                                     <div className="tooltip-header">
                                       <span style={{ fontSize: '1.1rem' }}>📄</span> Page {pageNum} Source
                                     </div>
-                                    <div style={{ color: 'var(--text-secondary)' }}>
-                                      "... {chunk.text.length > 250 ? chunk.text.substring(0, 250) + '...' : chunk.text} ..."
+                                    <div style={{ color: 'var(--text-secondary)', fontStyle: 'italic' }}>
+                                      "{chunk.snippet || (chunk.text.length > 150 ? chunk.text.substring(0, 150) + '...' : chunk.text)}"
                                     </div>
                                   </span>
                                 )}

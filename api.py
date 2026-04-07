@@ -67,6 +67,7 @@ class ChunkResponse(BaseModel):
     text: str
     page_number: int
     score: float
+    snippet: Optional[str] = None
 
 class QueryResponse(BaseModel):
     answer: str
@@ -167,7 +168,9 @@ Rules:
 	•	You may cite multiple pages if the answer spans across them
 
 Return JSON:
-{{"answer": "…", "confidence": "high/medium/low", "source": ""}}"""
+{{"answer": "…", "confidence": "high/medium/low", "citations": [{{"page": <number>, "snippet": "<exact 1-2 line quote from context that supports this citation>"}}]}}
+
+IMPORTANT: Each citation snippet must be a short exact quote (1-2 sentences max) copied directly from the context that supports the corresponding claim in the answer."""
 
         chat_completion = groq_client.chat.completions.create(
             messages=[{"role": "user", "content": prompt}],
@@ -182,12 +185,22 @@ Return JSON:
         except json.JSONDecodeError:
             pass
 
-        # Map chunks
+        # Build snippet lookup from LLM citations
+        snippet_map = {}  # page_number -> snippet
+        if answer_json and isinstance(answer_json.get("citations"), list):
+            for cit in answer_json["citations"]:
+                pg = cit.get("page")
+                snip = cit.get("snippet", "")
+                if pg is not None and snip:
+                    snippet_map[int(pg)] = snip
+
+        # Map chunks with snippets
         mapped_chunks = [
             ChunkResponse(
                 text=c.get("text", ""),
                 page_number=c.get("page_number", -1),
                 score=float(c.get("score", 0.0)),
+                snippet=snippet_map.get(c.get("page_number", -1)),
             )
             for c in retrieved
         ]
