@@ -14,7 +14,7 @@ export function CompanySelect({ onSubmit, isLoading }) {
   };
 
   const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: 10 }, (_, i) => currentYear - i);
+  const years = Array.from({ length: 10 }, (_, i) => (currentYear - 1) - i);
 
   return (
     <div className="select-screen">
